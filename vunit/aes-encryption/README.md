@@ -42,7 +42,7 @@ Set up the environment variable and run the example following steps below:
 
 To run example with multiple threads use -p option following by the thread nubmer.
 
-**3.1.4.** python3 run.py -p <thread_number>
+**3.1.4.** ```python3 run.py -p <thread_number>```
 
 ![Figure 2: Console view after running test with Riviera-PRO using five threads.](img/Console_view_after_running_test_with_Riviera-PRO_using_five_threads.png)
 
