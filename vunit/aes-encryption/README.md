@@ -102,4 +102,12 @@ vsim -c -do acdb.do; quit
 
 As a result all acdb files will be merged and html reports will be generated withion /acdb subfolder.
 
+## 5. Contribution tests
+
+To run only necessary tests please define environment variable: 
+CONTRIBUTRION
+
+If variable is equal to 1 the list of tests form contribution.txt file will be only executed.
+Previously generated /acdb/rank.html report can be used as a source of contributed test list.
+
 For more info about other coverages like assertion, expression, conditional or FSM, verification plan etc. please refer directly to Active-HDL/Riviera-PRO documentation.
