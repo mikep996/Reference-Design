@@ -91,8 +91,6 @@ or
 lib.set_compile_option("rivierapro.vcom_flags", ["-coverage","sb"])
 lib.set_sim_option("rivierapro.vsim_flags", ["-acdb_cov sb"])
 
-For more info about other coverages like assertion, expression, conditional or FSM please check Active-HDL/Riviera-PRO documentation.
-
 ### 4.2 Collecting and Merging Coverage data
 
 To summariuse coverage data please execute enclosed acdb.do script after VUnit:
@@ -103,3 +101,5 @@ Riviera-PRO
 vsim -c -do acdb.do; quit
 
 As a result all acdb files will be merged and html reports will be generated withion /acdb subfolder.
+
+For more info about other coverages like assertion, expression, conditional or FSM, verification plan etc. please refer directly to Active-HDL/Riviera-PRO documentation.
