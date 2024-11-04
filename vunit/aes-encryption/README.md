@@ -79,90 +79,27 @@ Replace the 'activehdl.py' in <vunit_hdl_location>/vunit_sim_if with the file ae
 
 **Figure 5:** Console view after running test with Active-HDL using five threads.
 
-## 4. Logic Data Profiling
+## 4. Coveraging
 
-### 4.1. Using Riviera-PRO Logic Data Profiler
+### 4.1. Using Active-HDL/Riviera-PRO Coverage 
 
-To use logic data profiler with Riviera-PRO apply the necessary patch and generate profiler report. Following steps will guide you through the whole process starting from localize vunit_hdl package and replacing necessary files.
+To use coverage (statement and branch) with Active-HDL/Riviera-PRO following arguments added to the run.py:
 
-**4.1.1.** ```pip show vunit_hdl```
+lib.set_compile_option("activehdl.vcom_flags", ["-coverage","sb"])
+lib.set_sim_option("activehdl.vsim_flags", ["-acdb_cov sb"])
+or 
+lib.set_compile_option("rivierapro.vcom_flags", ["-coverage","sb"])
+lib.set_sim_option("rivierapro.vsim_flags", ["-acdb_cov sb"])
 
-![Figure 6: Vunit Package location in Ubuntu OS](img/VUnit_Package_location_in_Ubuntu_OS.png)
+For more info about other coverages like assertion, expression, conditional or FSM please check Active-HDL/Riviera-PRO documentation.
 
-**Figure 6:** Vunit Package location in Unix OS.
+### 4.2 Collecting and Merging Coverage data
 
-**4.1.2.** Replace files named 'factory.py' and 'rivierapro.py' in <vunit_hdl_location>/vunit/sim_if with the files 'factory.py' and 'rivierapro.py' from aes-encryption/patch directory.
+To summariuse coverage data please execute enclosed acdb.do script after VUnit:
 
-**4.1.3.** Uncomment line 92nd in run.py script to enable logic profiler
+Active-HDL:
+vsim -c -tcl acdb.do; quit
+Riviera-PRO
+vsim -c -do acdb.do; quit
 
-![Figure 7: Uncommented line with enabled Data Profiling](img/Uncommented_line_with_enabled_Data_Profiling.png)
-
-**Figure 7:** Uncommented line with enabled Data Profiling.
-
-**4.1.4.** Run the run.py script to generate profiler output files
-
-```python3 run.py```
-
-**4.1.5.** Run the Riviera-PRO simulator in aes-encryption directory
-
-**4.1.6.** In the Riviera-PRO console type below command to generate profiler report
-
-```profiler report -tbp $curdir/vunit_out/test_output/<specific_test_directory>/rivierapro/Profiler/profiler.tbp -html <profiler_report_name>.html```
-
-Profiler Report will be stored in the aes-encryption directory.
-
-**4.1.7.** Open Profiler Report file for review the profiling results
-
-![Figure 8: Example Profiler Report in Riviera-PRO](img/Example_Profiler_Report_in_Riviera-PRO.png)
-
-**Figure 8:** Example Profiler Report in Riviera-PRO.
-
-### 4.2 Using Active-HDL Logic Data Profiler
-
-To use logic data profiler with Active-HDL apply the necessary patch and generate profiler report. Following steps will guide you through the whole process starting from localize vunit_hdl package and replacing necessary files. 
-
-**4.2.1.** pip show vunit_hdl
-
-![Figure 9: Vunit Package location in Windows OS](img/VUnit_Package_location_in_Windows_OS.png)
-
-**Figure 9:** Vunit Package location in Windows OS.
-
-**4.2.2.** Replace files named 'factory.py' and 'activehdl.py' in <vunit_hdl_location>/vunit/sim_if with the files 'factory.py' and 'activehdl.py' from aes-encryption/patch directory.
-
-**4.2.3.** Uncomment line 92nd in run.py script to enable logic profiler
-
-![Figure 10: Uncommented line with enabled Data Profiling](img/Uncommented_line_with_enabled_Data_Profiling.png)
-
-**Figure 10:** Uncommented line with enabled Data Profiling.
-
-**4.2.4.** Run the run.py script in GUI mode
-
-```python run.py -g```
-
-**4.2.5.** Run the VUnit simulation via Active-HDL console
-
-```run -all```
-
-![Figure 11: Running Vunit simulation in Active-HDL](img/Running_VUnit_simulation_in_Active-HDL.png)
-
-**Figure 11:** Running Vunit simulation in Active-HDL.
-
-**4.2.6** Stop the simulation to obtain Profiler results
-
-```endsim```
-
-![Figure 12: Stopping VUnit sinulation in Active-HDL](img/Stopping_VUnit_simulation_in_Active-HDL.png)
-
-**Figure 12:** Stopping VUnit sinulation in Active-HDL.
-
-**4.2.7.** In the Active-HDL console type the following command to generate profiler report:
-
-```profiler report -tbp $dsn/../../../Profiler/profiler.tbp -html $dsn/../../../Profiler/<profiler_report_name>.html```
-
-Profiler Report will be stored in the aes-encryption/vunit_out/test_output/<specific_test_directory>/Profiler directory.
-
-**4.2.8.** Open Profiler Report file for review the profiling results
-
-![Figure 13: Example Profiler Report in Active-HDL](img/Example_Profiler_Report_in_Active-HDL.png)
-
-**Figure 13:** Example Profiler Report in Active-HDL.
+As a result all acdb files will be merged and html reports will be generated withion /acdb subfolder.
